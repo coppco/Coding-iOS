@@ -83,12 +83,13 @@
     _descriptionStrLabel.alpha = 0.0;
 
     @weakify(self);
+    //这里做了动画  首先改变透明度  然后x减少动画
     [UIView animateWithDuration:2.0 animations:^{
         @strongify(self);
         self.bgImageView.alpha = 1.0;
         self.descriptionStrLabel.alpha = 1.0;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.6 delay:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.6 delay:0.3 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
             @strongify(self);
             [self setX:-kScreen_Width];
         } completion:^(BOOL finished) {

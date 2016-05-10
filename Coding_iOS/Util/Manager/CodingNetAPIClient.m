@@ -10,7 +10,6 @@
 
 #import "CodingNetAPIClient.h"
 #import "Login.h"
-
 @implementation CodingNetAPIClient
 
 static CodingNetAPIClient *_sharedClient = nil;
@@ -59,6 +58,8 @@ static dispatch_once_t onceToken;
     if (!aPath || aPath.length <= 0) {
         return;
     }
+    
+    
     //log请求数据
     DebugLog(@"\n===========request===========\n%@\n%@:\n%@", kNetworkMethodName[method], aPath, params);
     aPath = [aPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

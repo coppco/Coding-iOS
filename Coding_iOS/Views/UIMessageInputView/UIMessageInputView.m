@@ -77,6 +77,7 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
             [self saveInputStr];
             [self saveInputMedia];
         }
+        //通知代理执行方法
         if (_delegate && [_delegate respondsToSelector:@selector(messageInputView:heightToBottomChenged:)]) {
             [self.delegate messageInputView:self heightToBottomChenged:newheightToBottom];
         }
@@ -140,7 +141,7 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
 }
 
 - (void)mediaListChenged{
-    [self saveInputMedia];
+    [self saveInputMedia];  //更新字典
     if (_mediaView) {
         [self.mediaView reloadData];
         [self updateContentViewBecauseOfMedia:YES];
@@ -491,6 +492,7 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
     }
     
     if (hasPhotoBtn && !_mediaView) {
+        //上传图片的时候添加集合视图
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         _mediaView = [[UICustomCollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_inputTextView.frame), CGRectGetWidth(_inputTextView.frame), 1) collectionViewLayout:layout];
         _mediaView.scrollEnabled = NO;
@@ -629,6 +631,7 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
     };
     return ccell;
 }
+//layout的代理方法
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGSize ccellSize;
     CGFloat contentWidth = CGRectGetWidth(_inputTextView.frame);
@@ -807,8 +810,9 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
         [[BaseViewController presentingVC] dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
+//使用了KVO监听上传成功后,如果数组中还有文件那么还会继续上传
 - (void)doUploadMedia:(UIMessageInputView_Media *)media withIndex:(NSInteger)index{
+    NSLog(@"上传%ld", index);
     //保存到app内
     NSString* originalFileName = [[media.curAsset defaultRepresentation] filename];
     NSString *fileName = [NSString stringWithFormat:@"%@|||%@|||%@", self.curProject.id.stringValue, @"0", originalFileName];
@@ -834,6 +838,7 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
     }
 }
 
+//监听上传成功后执行方法
 - (void)completionUploadWithResult:(id)responseObject error:(NSError *)error{
     //移除文件（共有项目不能自动移除）
     NSString *diskFileName = [NSString stringWithFormat:@"%@|||%@|||%@", self.curProject.id.stringValue, @"0", self.uploadingPhotoName];
@@ -907,6 +912,7 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
     _inputTextView.selectedRange = NSMakeRange(0, _inputTextView.text.length);
     [_inputTextView insertText:@""];
     [self updateContentViewBecauseOfMedia:NO];
+    
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]) {
@@ -970,6 +976,7 @@ static NSMutableDictionary *_inputStrDict, *_inputMediaDict;
 }
 #pragma mark - KeyBoard Notification Handlers
 - (void)keyboardChange:(NSNotification*)aNotification{
+    NSLog(@"键盘");
     if ([aNotification name] == UIKeyboardDidChangeFrameNotification) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidChangeFrameNotification object:nil];
     }

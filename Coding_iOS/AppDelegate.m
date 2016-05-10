@@ -35,7 +35,7 @@
 #import <UMengSocial/UMSocialQQHandler.h>
 #import <evernote-cloud-sdk-ios/ENSDK/ENSDK.h>
 #import "UMSocialSinaSSOHandler.h"
-#import <Google/Analytics.h>
+//#import <Google/Analytics.h>
 
 #import "Tweet.h"
 #import "sys/utsname.h"
@@ -103,6 +103,7 @@
     [self.window makeKeyAndVisible];
     [FunctionIntroManager showIntroPage];
 
+    //在keyWindows上面加了一张图片  然后做的动画
     EaseStartView *startView = [EaseStartView startView];
     @weakify(self);
     [startView startAnimationWithCompletionBlock:^(EaseStartView *easeStartView) {
@@ -177,13 +178,13 @@
 - (void)registerGA{
     // Configure tracker from GoogleService-Info.plist.
     NSError *configureError;
-    [[GGLContext sharedInstance] configureWithError:&configureError];
+//    [[GGLContext sharedInstance] configureWithError:&configureError];
     NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
     
     // Optional: configure GAI options.
-    GAI *gai = [GAI sharedInstance];
-    gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
-    gai.logger.logLevel = kGAILogLevelError;  // remove before app release
+//    GAI *gai = [GAI sharedInstance];
+//    gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
+//    gai.logger.logLevel = kGAILogLevelError;  // remove before app release
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

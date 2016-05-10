@@ -45,7 +45,7 @@
         // Initialization code
         _myTasks = tasks;
         _block = block;
-        
+    
         _myTableView = ({
             UITableView *tableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
             tableView.backgroundColor = [UIColor clearColor];

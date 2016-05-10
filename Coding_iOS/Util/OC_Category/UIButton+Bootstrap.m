@@ -104,6 +104,7 @@
     UIButton *btn = [[UIButton alloc] initWithFrame:rect];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+    //设置样式
     const  SEL selArray[] = {@selector(bootstrapStyle), @selector(defaultManager), @selector(primaryStyle), @selector(successStyle), @selector(infoStyle), @selector(warningStyle), @selector(dangerStyle)};
     if ([btn respondsToSelector:selArray[style]]) {
 #pragma clang diagnostic push

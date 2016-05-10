@@ -56,7 +56,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    NSLog(@"%@", NSHomeDirectory());
     self.myLogin = [[Login alloc] init];
     self.myLogin.email = [Login preUserEmail];
     _captchaNeeded = NO;

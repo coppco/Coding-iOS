@@ -75,7 +75,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.myTableView reloadData];
+    [self.myTableView reloadData]; //这里是为了解决  颜色选择后返回来  输入框那里的颜色
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -132,7 +132,7 @@
 }
 - (void)colorBtnClick:(UIButton *)sender{
     EditColorViewController *vc = [EditColorViewController new];
-    vc.curTag = _tagToAdd;
+    vc.curTag = _tagToAdd;  //注意这里指向同一个地址  , 所以  后面的修改了这里也变了
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -190,13 +190,13 @@
     return [EditLabelCell cellHeight];
 }
 
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section > 0) {
-        return TRUE;
-    }
-    return FALSE;
-}
+//- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (indexPath.section > 0) {
+//        return TRUE;
+//    }
+//    return FALSE;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -241,7 +241,7 @@
     [cell hideUtilityButtonsAnimated:YES];
     
     NSIndexPath *indexPath = [self.myTableView indexPathForCell:cell];
-
+ 
     if (index == 0) {
         [self renameBtnClick:indexPath.row];
     } else {

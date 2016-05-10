@@ -88,6 +88,7 @@
         icarousel.delegate = self;
         icarousel.decelerationRate = 1.0;
         icarousel.scrollSpeed = 1.0;
+        
         icarousel.type = iCarouselTypeLinear;
         icarousel.pagingEnabled = YES;
         icarousel.clipsToBounds = YES;
@@ -182,21 +183,25 @@
         }
     };
     
-    [self setupNavBtn];
-    self.icarouselScrollEnabled = NO;
+    [self setupNavBtn]; //设置左右按钮
+    self.icarouselScrollEnabled = NO;  //设置icarsouel不能滚动
     
     [[StartImagesManager shareManager] handleStartLink];//如果 start_image 有对应的 link 的话，需要进入到相应的 web 页面
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //把搜索栏添加到导航条
     [self.navigationController.navigationBar addSubview:_mySearchBar];
+    
     if (_myCarousel) {
         ProjectListView *listView = (ProjectListView *)_myCarousel.currentItemView;
         if (listView) {
+            //加载数据的
             [listView refreshToQueryData];
         }
     }
+    //获取左侧的项目数据
     [_myFliterMenu refreshMenuDate];
 }
 
@@ -257,10 +262,14 @@
 
 -(void)fliterClicked:(id)sender{
     [self closeMenu];
-    if (_myFliterMenu.showStatus) {
+    if (_myFliterMenu.showStatus) {//收起来
+        
+        //设置导航栏左侧图片
         [self fliterBtnClose:TRUE];
+        
+        //隐藏
         [_myFliterMenu dismissMenu];
-    }else
+    }else//展开
     {
         [self fliterBtnClose:FALSE];
         _myFliterMenu.selectNum=_selectNum>=3?_selectNum+1:_selectNum;
@@ -269,6 +278,7 @@
     }
 }
 
+//收起
 -(void)closeFliter{
     if ([_myFliterMenu showStatus]) {
         [_myFliterMenu dismissMenu];
@@ -287,23 +297,23 @@
     [_leftNavBtn setImage:status?[UIImage imageNamed:@"filtertBtn_normal_Nav"]:[UIImage imageNamed:@"filterBtn_selected_Nav"] forState:UIControlStateNormal];
 }
 
-//弹出事件
--(void)rotateView:(UIView*)aView
-{
-    POPBasicAnimation* rotateAnimation = ({
-        POPBasicAnimation* basicAnimation=[POPBasicAnimation animationWithPropertyNamed:kPOPLayerRotation];
-        basicAnimation.toValue = @(22.5 * (M_PI / 180.0f));
-        basicAnimation.timingFunction =[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        basicAnimation.duration = 0.2f;
-        [basicAnimation setCompletionBlock:^(POPAnimation * ani, BOOL fin) {
-            if (fin) {
-            }
-        }];
-        basicAnimation;
-    });
-    [aView.layer pop_addAnimation:rotateAnimation forKey:@"rotateAnimation"];
-}
-
+////弹出事件
+//-(void)rotateView:(UIView*)aView
+//{
+//    POPBasicAnimation* rotateAnimation = ({
+//        POPBasicAnimation* basicAnimation=[POPBasicAnimation animationWithPropertyNamed:kPOPLayerRotation];
+//        basicAnimation.toValue = @(22.5 * (M_PI / 180.0f));
+//        basicAnimation.timingFunction =[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        basicAnimation.duration = 0.2f;
+//        [basicAnimation setCompletionBlock:^(POPAnimation * ani, BOOL fin) {
+//            if (fin) {
+//            }
+//        }];
+//        basicAnimation;
+//    });
+//    [aView.layer pop_addAnimation:rotateAnimation forKey:@"rotateAnimation"];
+//}
+//添加左右导航栏按钮
 -(void)addImageBarButtonWithImageName:(NSString*)imageName button:(UIButton*)aBtn action:(SEL)action isRight:(BOOL)isR
 {
     UIImage *image = [UIImage imageNamed:imageName];
@@ -336,6 +346,7 @@
         [_myProjectsDict setObject:curPros forKey:[NSNumber numberWithUnsignedInteger:index]];
     }
     ProjectListView *listView = (ProjectListView *)view;
+
     if (listView) {
         [listView setProjects:curPros];
     }else{
@@ -376,6 +387,7 @@
 
 - (void)carouselDidScroll:(iCarousel *)carousel{
     [self.view endEditing:YES];
+    NSLog(@"2");
     if (_mySegmentControl) {
         float offset = carousel.scrollOffset;
         if (offset > 0) {
@@ -456,7 +468,7 @@
 
 #pragma mark Search
 - (void)searchItemClicked:(id)sender{
-    [_mySearchBar setX:20];
+//    [_mySearchBar setX:20];
     if (!_mySearchDisplayController) {
         _mySearchDisplayController = ({
             UISearchDisplayController *searchVC = [[UISearchDisplayController alloc] initWithSearchBar:_mySearchBar contentsController:self];
@@ -472,7 +484,7 @@
         });
     }
     
-    [_mySearchBar becomeFirstResponder];
+//    [_mySearchBar becomeFirstResponder];
 }
 
 -(void)searchAction{

@@ -55,6 +55,7 @@
                 _captchaView = [[UITapImageView alloc] initWithFrame:CGRectMake(kScreen_Width - 60 - kLoginPaddingLeftWidth, (44-25)/2, 60, 25)];
                 _captchaView.layer.masksToBounds = YES;
                 _captchaView.layer.cornerRadius = 5;
+                _captchaView.backgroundColor = [UIColor redColor];
                 [_captchaView addTapBlock:^(id obj) {
                     [weakSelf refreshCaptchaImage];
                 }];

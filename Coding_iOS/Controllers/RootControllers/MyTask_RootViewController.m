@@ -63,6 +63,7 @@
         icarousel.pagingEnabled = YES;
         icarousel.clipsToBounds = YES;
         icarousel.bounceDistance = 0.2;
+//        icarousel.backgroundColor = [UIColor redColor];
         [self.view addSubview:icarousel];
         [icarousel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(kMySegmentControlIcon_Height, 0, 0, 0));
@@ -185,6 +186,7 @@
 }
 
 - (void)carouselDidScroll:(iCarousel *)carousel{
+    NSLog(@"1carouselDidScroll");
     if (_mySegmentControl) {
         float offset = carousel.scrollOffset;
         if (offset > 0) {

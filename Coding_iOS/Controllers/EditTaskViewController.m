@@ -140,7 +140,7 @@
 - (void)messageInputView:(UIMessageInputView *)inputView sendText:(NSString *)text{
     [self sendCommentMessage:text];
 }
-
+//代理方法,当键盘改变和底部的高度的时候调用
 - (void)messageInputView:(UIMessageInputView *)inputView heightToBottomChenged:(CGFloat)heightToBottom{
     [UIView animateWithDuration:0.25 delay:0.0f options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
         UIEdgeInsets contentInsets= UIEdgeInsetsMake(0.0, 0.0, MAX(CGRectGetHeight(inputView.frame), heightToBottom), 0.0);;
@@ -148,7 +148,7 @@
 
         self.myTableView.contentInset = contentInsets;
         self.myTableView.scrollIndicatorInsets = contentInsets;
-
+        
         if ([_commentSender isKindOfClass:[UIView class]] && !self.myTableView.isDragging && heightToBottom > 60) {
             UIView *senderView = _commentSender;
             CGFloat senderViewBottom = [_myTableView convertPoint:CGPointZero fromView:senderView].y+ CGRectGetMaxY(senderView.bounds);
@@ -166,6 +166,11 @@
         if (data) {
             weakSelf.myCopyTask.activityList = data;
             [weakSelf.myTableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"这里滚动到最下面");
+                
+                [self.myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.myCopyTask.activityList.count - 1 inSection:(self.myCopyTask.handleType > TaskHandleTypeEdit)? 2 - 1: self.myTask.resourceReference.itemList.count > 0? 4 - 1: 3- 1] atScrollPosition:(UITableViewScrollPositionTop) animated:YES];
+            });
         };
     }];
 }
@@ -316,13 +321,16 @@
             TaskContentCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TaskContent forIndexPath:indexPath];
             cell.task = _myCopyTask;
             cell.textValueChangedBlock = ^(NSString *textStr){
+                //文字变化
                 weakSelf.myCopyTask.content = textStr;
             };
             cell.textViewBecomeFirstResponderBlock = ^(){
+                //成为第一响应者方法
                 [weakSelf.myMsgInputView isAndResignFirstResponder];
                 [weakSelf.myTableView setContentOffset:CGPointZero animated:YES];
             };
             cell.deleteBtnClickedBlock = ^(Task *toDelete){
+                //删除按钮
                 [weakSelf.view endEditing:YES];
                 UIActionSheet *actionSheet = [UIActionSheet bk_actionSheetCustomWithTitle:@"删除此任务" buttonTitles:nil destructiveTitle:@"确认删除" cancelTitle:@"取消" andDidDismissBlock:^(UIActionSheet *sheet, NSInteger index) {
                     if (index == 0) {
@@ -332,12 +340,14 @@
                 [actionSheet showInView:weakSelf.view];
             };
             cell.descriptionBtnClickedBlock = ^(Task *task){
+                //描述
                 if (weakSelf.myCopyTask.has_description.boolValue && !weakSelf.myCopyTask.task_description) {
                     return ;
                 }
                 [weakSelf goToDescriptionVC];
             };
             cell.addTagBlock = ^(){
+                //添加标签
                 [weakSelf goToTagsVC];
             };
             cell.tagsChangedBlock = ^(){

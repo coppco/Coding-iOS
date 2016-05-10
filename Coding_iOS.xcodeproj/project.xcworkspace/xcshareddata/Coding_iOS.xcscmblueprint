@@ -7,14 +7,14 @@
     "0BE8B4916C79C0D6BC415A5C19AC33B37D62A706" : 0,
     "9F3660E5AC46AAE96CC141F90EBB3A671D67F2C2" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3DC56A68-B846-4DEA-BD66-0B73F4BC61CD",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CA9D5631-E6C5-4221-8926-8E5B5F1D39F3",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "0BE8B4916C79C0D6BC415A5C19AC33B37D62A706" : "Coding-iOS\/Coding_iOS\/Resources\/webview\/",
     "9F3660E5AC46AAE96CC141F90EBB3A671D67F2C2" : "Coding-iOS\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Coding_iOS",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Coding_iOS.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Coding_iOS.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/git.coding.net\/bluishoul\/CodingAppWebviewTemplate.git",

@@ -464,6 +464,7 @@ static char LoadingViewKey, BlankPageViewKey;
     }
     _isLoading = YES;
     [self loadingAnimation];
+    NSLog(@"1startAnimating");
 }
 
 - (void)stopAnimating{

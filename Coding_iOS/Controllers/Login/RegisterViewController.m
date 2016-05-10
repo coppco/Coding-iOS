@@ -181,6 +181,7 @@
     _footerBtn = [UIButton buttonWithStyle:StrapSuccessStyle andTitle:@"注册" andFrame:CGRectMake(kLoginPaddingLeftWidth, 20, kScreen_Width-kLoginPaddingLeftWidth*2, 45) target:self action:@selector(sendRegister)];
     [footerV addSubview:_footerBtn];
     
+
     __weak typeof(self) weakSelf = self;
     RAC(self, footerBtn.enabled) = [RACSignal combineLatest:@[RACObserve(self, myRegister.global_key),
                                                               RACObserve(self, myRegister.phone),

@@ -31,26 +31,28 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
-        if (!_projectIconView) {
+        if (!_projectIconView) {//项目图片
             _projectIconView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 12, kIconSize, kIconSize)];
             _projectIconView.layer.masksToBounds = YES;
-            _projectIconView.layer.cornerRadius = 2.0;
+            _projectIconView.layer.cornerRadius = 12.0;
             [self.contentView addSubview:_projectIconView];
         }
         
-        if (!_projectTitleLabel) {
+        if (!_projectTitleLabel) {//项目名称
             _projectTitleLabel = [UILabel new];
             _projectTitleLabel.textColor = [UIColor colorWithHexString:@"0x222222"];
+            _projectTitleLabel.backgroundColor = [UIColor greenColor];
             _projectTitleLabel.font = [UIFont systemFontOfSize:17];
             [self.contentView addSubview:_projectTitleLabel];
         }
-        if (!_ownerTitleLabel) {
+        if (!_ownerTitleLabel) {//项目作者
             _ownerTitleLabel = [UILabel new];
             _ownerTitleLabel.textColor = [UIColor colorWithHexString:@"0x999999"];
+            _ownerTitleLabel.backgroundColor = [UIColor redColor];
             _ownerTitleLabel.font = [UIFont systemFontOfSize:15];
             [self.contentView addSubview:_ownerTitleLabel];
         }
-        if (!_describeLabel) {
+        if (!_describeLabel) {//项目描述
             _describeLabel = [UILabel new];
             _describeLabel.textColor = [UIColor colorWithHexString:@"0x666666"];
             _describeLabel.font = [UIFont systemFontOfSize:14];
@@ -58,15 +60,16 @@
             [self.contentView addSubview:_describeLabel];
         }
 
-        if (!_privateIconView) {
+        if (!_privateIconView) {//是否私有图标
             _privateIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_project_private"]];
             _privateIconView.hidden = YES;
             [self.contentView addSubview:_privateIconView];
         }
         
-        if (!_pinIconView) {
+        if (!_pinIconView) {//设置常用后一个钉子图标
             _pinIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_project_cell_setNormal"]];
             _pinIconView.hidden = YES;
+            
             [self.contentView addSubview:_pinIconView];
             [_pinIconView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(kPinSize, kPinSize));
@@ -75,7 +78,7 @@
             }];
         }
         
-        if (!_setCommonBtn) {
+        if (!_setCommonBtn) {//几个小点点  点开设置常用的
             _setCommonBtn = [UIButton new];
             _setCommonBtn.hidden = YES;
             //for test
