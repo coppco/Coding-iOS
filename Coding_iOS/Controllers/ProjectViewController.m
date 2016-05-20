@@ -8,10 +8,10 @@
 
 #import "ProjectViewController.h"
 #import "UIViewController+DownMenu.h"
-#import "ProjectActivitiesView.h"
-#import "ProjectTasksView.h"
+#import "ProjectActivitiesView.h"  //动态view
+#import "ProjectTasksView.h"  //任务view
 #import "EditTaskViewController.h"
-#import "ProjectTopicsView.h"
+#import "ProjectTopicsView.h" //讨论
 #import "ProjectMemberListViewController.h"
 #import "EditTopicViewController.h"
 #import "TopicDetailViewController.h"
@@ -19,8 +19,8 @@
 #import "Coding_NetAPIManager.h"
 #import "UserInfoViewController.h"
 #import "AddUserViewController.h"
-#import "ProjectFolderListView.h"
-#import "ProjectCodeListView.h"
+#import "ProjectFolderListView.h"  //文件
+#import "ProjectCodeListView.h" //代码
 #import "CodeListViewController.h"
 #import "CodeViewController.h"
 #import "ProjectMemberActivityListViewController.h"
@@ -39,7 +39,7 @@
 
 @interface ProjectViewController ()
 
-@property (nonatomic, strong) NSMutableDictionary *projectContentDict;
+@property (nonatomic, strong) NSMutableDictionary *projectContentDict; //存放view的字典
 
 //项目成员
 @property (strong, nonatomic) ProjectMemberListViewController *proMemberVC;
@@ -74,6 +74,7 @@
     if (curContentView) {
         [_projectContentDict setObject:curContentView forKey:[NSNumber numberWithInteger:_curIndex]];
     }
+    
 }
 
 - (void)viewDidLoad
@@ -86,8 +87,8 @@
         if (!_myProject.is_public) {
             [self requestForMyProject];
         }else{
-            [self configNavBtnWithMyProject];
-            [self refreshWithNewIndex:_curIndex];
+            [self configNavBtnWithMyProject]; //设置标题
+            [self refreshWithNewIndex:_curIndex];  //这里获取数据  刷新页面
         }
     }
 }
@@ -212,20 +213,24 @@
         switch (newViewType) {
             case ProjectViewTypeActivities:{
                 curView = ({
+                    /**
+                     动态的那个view
+                     */
                     ProjectActivitiesView *activitiesView = [[ProjectActivitiesView alloc] initWithFrame:self.view.bounds project:_myProject block:^(ProjectActivity *proActivity) {
-                        [weakSelf goToVCWithItem:nil activity:proActivity isContent:YES inProject:weakSelf.myProject];
+                        [weakSelf goToVCWithItem:nil activity:proActivity isContent:YES inProject:weakSelf.myProject];//点击了单元格
                     } defaultIndex:0];
                     activitiesView.htmlItemClickedBlock = ^(HtmlMediaItem *clickedItem, ProjectActivity *proAct, BOOL isContent){
-                        [weakSelf goToVCWithItem:clickedItem activity:proAct isContent:isContent inProject:weakSelf.myProject];
+                        [weakSelf goToVCWithItem:clickedItem activity:proAct isContent:isContent inProject:weakSelf.myProject];//点击了绿色的
                     };
                     activitiesView.userIconClickedBlock = ^(User *curUser){
-                        [weakSelf goToUserInfo:curUser];
+                        [weakSelf goToUserInfo:curUser];//点击用户图标
                     };
                     activitiesView;
                 });
             }
                 break;
             case ProjectViewTypeTasks:{
+                //任务的view
                 curView = ({
                     [[ProjectTasksView alloc] initWithFrame:self.view.bounds project:_myProject block:^(ProjectTaskListView *taskListView, Task *task) {
                         EditTaskViewController *vc = [[EditTaskViewController alloc] init];

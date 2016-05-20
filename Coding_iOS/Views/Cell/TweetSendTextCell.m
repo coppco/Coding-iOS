@@ -230,7 +230,7 @@
     [self locationButtonWithStr:locationStr];
 }
 
-#pragma mark - KeyBoard Notification Handlers
+#pragma mark - KeyBoard Notification Handlers  键盘的处理
 - (void)keyboardChange:(NSNotification*)aNotification{
     NSDictionary* userInfo = [aNotification userInfo];
     NSTimeInterval animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];

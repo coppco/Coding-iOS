@@ -16,12 +16,12 @@
 #import "Coding_NetAPIManager.h"
 
 @interface TaskContentCell ()
-@property (strong, nonatomic) ProjectTagsView *tagsView;
+@property (strong, nonatomic) ProjectTagsView *tagsView;//上面添加标签view
 
-@property (strong, nonatomic) UITextView *taskContentView;
-@property (strong, nonatomic) UIButton *deleteBtn;
-@property (strong, nonatomic) UILabel *creatorLabel, *numLabel;
-@property (strong, nonatomic) UIView *downLineView, *upLineView;
+@property (strong, nonatomic) UITextView *taskContentView;  //输入框
+@property (strong, nonatomic) UIButton *deleteBtn;  //删除按钮
+@property (strong, nonatomic) UILabel *creatorLabel, *numLabel;//创造者和数量标签
+@property (strong, nonatomic) UIView *downLineView, *upLineView;  //上下线
 @end
 
 @implementation TaskContentCell
@@ -39,11 +39,13 @@
             _tagsView.addTagBlock = ^(){
                 @strongify(self);
                 if (self.addTagBlock) {
+                    //标签view的block  传递到 controller中
                     self.addTagBlock();
                 }
             };
             _tagsView.deleteTagBlock = ^(ProjectTag *curTag){
                 @strongify(self);
+                //删除操作
                 [self deleteTag:curTag];
             };
             [self.contentView addSubview:_tagsView];

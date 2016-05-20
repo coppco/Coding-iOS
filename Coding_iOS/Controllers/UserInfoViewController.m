@@ -81,17 +81,17 @@
     });
     __weak typeof(self) weakSelf = self;
     _headerView = [EaseUserHeaderView userHeaderViewWithUser:_curUser image:[StartImagesManager shareManager].curImage.image];
-    _headerView.userIconClicked = ^(){
+    _headerView.userIconClicked = ^(){ //点击照片
         [weakSelf userIconClicked];
     };
     _headerView.fansCountBtnClicked = ^(){
-        [weakSelf fansCountBtnClicked];
+        [weakSelf fansCountBtnClicked];  //粉丝数
     };
     _headerView.followsCountBtnClicked = ^(){
-        [weakSelf followsCountBtnClicked];
+        [weakSelf followsCountBtnClicked];  //关注数
     };
     _headerView.followBtnClicked = ^(){
-        [weakSelf followBtnClicked];
+        [weakSelf followBtnClicked]; //关注
     };
     [_myTableView addParallaxWithView:_headerView andHeight:CGRectGetHeight(_headerView.frame)];
     if (![self isMe]) {
@@ -142,18 +142,18 @@
 
 #pragma mark Table M
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return [self.curUser.global_key isEqualToString:[Login curLoginUser].global_key]? 4: 3;
+    return [self.curUser.global_key isEqualToString:[Login curLoginUser].global_key]? 4: 3; //不是自己就是4个  自己3个分区
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSInteger row = 0;
     if (section == 0) {
-        row = [self isMe]? 0: 3;
+        row = [self isMe]? 0: 3; //自己  分区1不显示  否则显示3个  地址  座右铭等
     }else if (section == 1){
-        row = 1;
+        row = 1;  //详细信息
     }else if (section == 2){
-        row = [self isMe]? 4: 3;
+        row = [self isMe]? 4: 3;  //项目  冒泡   话题  本地文件
     }else if (section == 3){
-        row = 1;
+        row = 1;  //马币
     }
     return row;
 }

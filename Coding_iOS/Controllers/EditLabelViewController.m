@@ -190,13 +190,13 @@
     return [EditLabelCell cellHeight];
 }
 
-//- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (indexPath.section > 0) {
-//        return TRUE;
-//    }
-//    return FALSE;
-//}
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section > 0) {
+        return TRUE;
+    }
+    return FALSE;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

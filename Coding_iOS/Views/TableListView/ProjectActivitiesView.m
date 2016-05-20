@@ -46,7 +46,7 @@
             icarousel;
         });
         
-        //添加滑块
+        //添加滑块  上面的几个全部  任务 讨论
         __weak typeof(_myCarousel) weakCarousel = _myCarousel;
         
         self.mySegmentControl = [[XTSegmentControl alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kMySegmentControl_Height) Items:self.titlesArray selectedBlock:^(NSInteger index) {

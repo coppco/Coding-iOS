@@ -19,7 +19,7 @@
 @property (strong, nonatomic) UIWebView *preview;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
-@property (strong, nonatomic) EaseMarkdownTextView *editView;
+@property (strong, nonatomic) EaseMarkdownTextView *editView;//富文本编辑textView
 @end
 
 @implementation TaskDescriptionViewController
@@ -30,8 +30,8 @@
     if (!_segmentedControl) {
         _segmentedControl = ({
             UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"编辑", @"预览"]];
-            [segmentedControl setWidth:80 forSegmentAtIndex:0];
-            [segmentedControl setWidth:80 forSegmentAtIndex:1];
+            [segmentedControl setWidth:80 forSegmentAtIndex:0];//设置宽度
+            [segmentedControl setWidth:50 forSegmentAtIndex:1];
             [segmentedControl setTitleTextAttributes:@{
                                                         NSFontAttributeName: [UIFont boldSystemFontOfSize:16],
                                                         NSForegroundColorAttributeName: [UIColor colorWithHexString:@"0x28303b"]
@@ -199,6 +199,7 @@
     DebugLog(@"strLink=[%@]",request.URL.absoluteString);
 
     NSString *strLink = request.URL.absoluteString;
+    NSLog(@"%@", strLink);
     if ([strLink rangeOfString:@"about:blank"].location != NSNotFound) {
         return YES;
     } else {

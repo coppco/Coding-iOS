@@ -61,6 +61,7 @@
                 weakSelf.mySegmentControl = [[XTSegmentControl alloc] initWithFrame:segmentFrame Items:weakSelf.myMemberList selectedBlock:^(NSInteger index) {
                     [weakCarousel scrollToItemAtIndex:index animated:NO];
                 }];
+//                self.mySegmentControl.backgroundColor = [UIColor greenColor];
                 [weakSelf addSubview:self.mySegmentControl];
                 [weakSelf.myCarousel reloadData];
             }else{

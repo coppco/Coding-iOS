@@ -266,7 +266,6 @@ typedef NS_ENUM(NSInteger, XTSegmentControlItemType)
         [self.delegate segmentControl:self selectedIndex:index];
         
     }else if (self.block) {
-        
         self.block(index);
     }
 }

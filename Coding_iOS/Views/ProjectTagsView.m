@@ -196,7 +196,7 @@
         self.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
         self.layer.cornerRadius = 2;
         @weakify(self);
-        [self addPressMenuTitles:@[@"删除"] menuClickedBlock:^(NSInteger index, NSString *title) {
+        [self addPressMenuTitles:@[@"删除",@"修改"] menuClickedBlock:^(NSInteger index, NSString *title) {
             @strongify(self);
             if (self.deleteBlock) {
                 self.deleteBlock(self.curTag);

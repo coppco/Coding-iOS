@@ -36,7 +36,10 @@
             _textField = [UITextField new];
             [_textField setFont:[UIFont systemFontOfSize:17]];
             [_textField addTarget:self action:@selector(editDidBegin:) forControlEvents:UIControlEventEditingDidBegin];
-            [_textField addTarget:self action:@selector(textValueChanged:) forControlEvents:UIControlEventEditingChanged];
+//            [_textField addTarget:self action:@selector(textValueChanged:) forControlEvents:UIControlEventEditingChanged];
+            [_textField bk_addEventHandler:^(id sender) {
+                [self textValueChanged:sender];
+            } forControlEvents:(UIControlEventValueChanged)];
             [_textField addTarget:self action:@selector(editDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
             [self.contentView addSubview:_textField];
             [_textField mas_makeConstraints:^(MASConstraintMaker *make) {

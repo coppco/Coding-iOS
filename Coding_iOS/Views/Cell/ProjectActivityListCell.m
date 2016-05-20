@@ -32,7 +32,7 @@
 @property (nonatomic, assign) BOOL haveRead, top, bottom;
 
 @property (nonatomic, strong) UIImageView *timeIconView, *timeLineView;
-@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *timeLabel; //时间文本
 @end
 
 @implementation ProjectActivityListCell
@@ -59,17 +59,20 @@
         ;
                                          
         if (!_timeLineView) {
+            //从上到下的一个灰色线
             _timeLineView = [[UIImageView alloc] initWithFrame:CGRectMake(timeLineCenterX - kProjectActivityListCell_TimeLineWidth/2, 0, kProjectActivityListCell_TimeLineWidth, 1)];
             //        _timeLineView.contentMode = UIViewContentModeScaleToFill;
             [self.contentView addSubview:_timeLineView];
         }
         if (!_timeIconView) {
+            //时间圆点
             _timeIconView = [[UIImageView alloc] initWithFrame:CGRectMake(timeLineCenterX - kProjectActivityListCell_TimeIconWidth/2, 10+(kProjectActivityListCell_IconHeight- kProjectActivityListCell_TimeIconWidth)/2 , kProjectActivityListCell_TimeIconWidth, kProjectActivityListCell_TimeIconWidth)];
             [self.contentView addSubview:_timeIconView];
         }
         if (!_actionLabel) {
+            //某某上传了  更新了
             _actionLabel = [[UITTTAttributedLabel alloc] initWithFrame:CGRectMake(kProjectActivityListCell_LeftPading, kProjectActivityListCell_UpDownPading, kProjectActivityListCell_ContentWidth, 20)];
-            _actionLabel.backgroundColor = [UIColor clearColor];
+            _actionLabel.backgroundColor = [UIColor redColor];
             _actionLabel.textColor = [UIColor colorWithHexString:@"0x222222"];
             _actionLabel.font = kProjectActivityListCell_ActionFont;
             _actionLabel.linkAttributes = kLinkAttributes;
@@ -78,8 +81,9 @@
             [self.contentView addSubview:_actionLabel];
         }
         if (!_contentLabel) {
+            //评论内容
             _contentLabel = [[UITTTAttributedLabel alloc] initWithFrame:CGRectMake(kProjectActivityListCell_LeftPading, 0, kProjectActivityListCell_ContentWidth, 20)];
-            _contentLabel.backgroundColor = [UIColor clearColor];
+            _contentLabel.backgroundColor = [UIColor blueColor];
             _contentLabel.textColor = [UIColor colorWithHexString:@"0x555555"];
             _contentLabel.font = kProjectActivityListCell_ContentFont;
 //            _contentLabel.linkAttributes = kLinkAttributes;
@@ -88,6 +92,7 @@
             [self.contentView addSubview:_contentLabel];
         }
         if (!_timeLabel) {
+            //时间
             _timeLabel = [[UITTTAttributedLabel alloc] initWithFrame:CGRectMake(kProjectActivityListCell_LeftPading, 0, kProjectActivityListCell_ContentWidth, kProjectActivityListCell_TimeHeight)];
             _timeLabel.backgroundColor = [UIColor clearColor];
             _timeLabel.font = kProjectActivityListCell_TimeFont;
@@ -130,7 +135,7 @@
 //    时间轴Icon
     [_timeIconView setImage:[UIImage imageNamed:(_haveRead? @"timeline_icon_read" : @"timeline_icon_unread")]];
     
-//    行为
+//    行为  可以点击的文字
     CGFloat curBottomY = kProjectActivityListCell_UpDownPading;
 
     [_actionLabel setLongString:_proAct.actionStr withFitWidth:kProjectActivityListCell_ContentWidth maxHeight:kProjectActivityListCell_MaxActionHeight];

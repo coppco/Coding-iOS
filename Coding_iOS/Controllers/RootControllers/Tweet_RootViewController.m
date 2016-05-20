@@ -98,7 +98,7 @@
 //                              _curIndex = index;
 //                              [self refreshFirst];
 //                          }];
-    
+    //左侧按钮
     UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"hot_topic_Nav"] style:UIBarButtonItemStylePlain target:self action:@selector(hotTopicBtnClicked:)];
 
     [self.parentViewController.navigationItem setLeftBarButtonItem:leftBarItem animated:NO];
@@ -118,7 +118,7 @@
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
-        {
+        {//加载更多
             __weak typeof(self) weakSelf = self;
             [tableView addInfiniteScrollingWithActionHandler:^{
                 [weakSelf refreshMore];
@@ -130,6 +130,8 @@
         }
         tableView;
     });
+    
+    //下拉刷新
     _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.myTableView];
     [_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     

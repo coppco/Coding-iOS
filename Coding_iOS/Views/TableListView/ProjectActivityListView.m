@@ -96,19 +96,20 @@
 - (void)sendRequest{
     if (!_myProActs.willLoadMore) {
         if (_myProActs.list.count <= 0) {
-            [self beginLoading];
+            [self beginLoading]; //开始动画
         }
     }
     __weak typeof(self) weakSelf = self;
     [[Coding_NetAPIManager sharedManager] request_ProjectActivityList_WithObj:_myProActs andBlock:^(NSArray *data, NSError *error) {
-        [weakSelf.myRefreshControl endRefreshing];
-        [weakSelf endLoading];
+        [weakSelf.myRefreshControl endRefreshing];  //下拉刷新
+        [weakSelf endLoading]; //屏幕中间的动画
         [weakSelf.myTableView.infiniteScrollingView stopAnimating];
         if (data) {
             [weakSelf.myProActs configWithProActList:data];
             [weakSelf.myTableView reloadData];
             weakSelf.myTableView.showsInfiniteScrolling = weakSelf.myProActs.canLoadMore;
         }
+        //显示那个没有数据的界面
         [weakSelf configBlankPage:EaseBlankPageTypeActivity hasData:(weakSelf.myProActs.list.count > 0) hasError:(error != nil) reloadButtonBlock:^(id sender) {
             [weakSelf refresh];
         }];

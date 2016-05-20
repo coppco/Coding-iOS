@@ -15,7 +15,7 @@
 //#import "ProjectActivityListCell.h"
 #import "ProjectViewController.h"
 #import "Coding_NetAPIManager.h"
-#import "ODRefreshControl.h"
+#import "ODRefreshControl.h" //刷新控件
 #import "WebViewController.h"
 
 //#import "UserInfoViewController.h"
@@ -23,8 +23,8 @@
 //#import "TopicDetailViewController.h"
 //#import "FileListViewController.h"
 //#import "FileViewController.h"
-#import "UsersViewController.h"
-#import "ForkTreeViewController.h"
+#import "UsersViewController.h"  //收藏和关注的人
+#import "ForkTreeViewController.h"  //fork按钮
 
 #import "CodeViewController.h"
 #import "PRListViewController.h"
@@ -35,9 +35,9 @@
 
 @interface NProjectViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *myTableView;
-@property (nonatomic, strong) ODRefreshControl *refreshControl;
+@property (nonatomic, strong) ODRefreshControl *refreshControl; //下拉刷新控件
 
-@property (strong, nonatomic) EaseGitButtonsView *gitButtonsView;
+@property (strong, nonatomic) EaseGitButtonsView *gitButtonsView; //下面的按钮
 
 @end
 
@@ -73,6 +73,7 @@
     
     __weak typeof(self) weakSelf = self;
     _gitButtonsView = [EaseGitButtonsView new];
+    _gitButtonsView.backgroundColor = [UIColor redColor];
     _gitButtonsView.gitButtonClickedBlock = ^(NSInteger index, EaseGitButtonPosition position){
         if (position == EaseGitButtonPositionLeft) {
             [weakSelf actionWithGitBtnIndex:index];

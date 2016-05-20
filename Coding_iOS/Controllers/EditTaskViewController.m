@@ -28,7 +28,8 @@
 @property (strong, nonatomic) UITableView *myTableView;
 
 //评论
-@property (nonatomic, strong) UIMessageInputView *myMsgInputView;
+@property (nonatomic, strong) UIMessageInputView *myMsgInputView;  //键盘的那个view
+
 @property (nonatomic, strong) TaskComment *toComment;
 @property (nonatomic, strong) UIView *commentSender;
 @end
@@ -64,10 +65,10 @@
         tableView.backgroundColor = kColorTableSectionBg;
         tableView.delegate = self;
         tableView.dataSource = self;
-        [tableView registerClass:[TaskContentCell class] forCellReuseIdentifier:kCellIdentifier_TaskContent];
-        [tableView registerClass:[LeftImage_LRTextCell class] forCellReuseIdentifier:kCellIdentifier_LeftImage_LRText];
-        [tableView registerClass:[TaskCommentCell class] forCellReuseIdentifier:kCellIdentifier_TaskComment];
-        [tableView registerClass:[TaskCommentCell class] forCellReuseIdentifier:kCellIdentifier_TaskComment_Media];
+        [tableView registerClass:[TaskContentCell class] forCellReuseIdentifier:kCellIdentifier_TaskContent]; //添加tag  那个cell
+        [tableView registerClass:[LeftImage_LRTextCell class] forCellReuseIdentifier:kCellIdentifier_LeftImage_LRText];  //左边图片的cell,右边文字的cell
+        [tableView registerClass:[TaskCommentCell class] forCellReuseIdentifier:kCellIdentifier_TaskComment]; //
+        [tableView registerClass:[TaskCommentCell class] forCellReuseIdentifier:kCellIdentifier_TaskComment_Media]; //评论带图片
         [tableView registerClass:[TaskActivityCell class] forCellReuseIdentifier:kCellIdentifier_TaskActivityCell];
         [tableView registerClass:[TaskDescriptionCell class] forCellReuseIdentifier:kCellIdentifier_TaskDescriptionCell];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -347,9 +348,10 @@
                 [weakSelf goToDescriptionVC];
             };
             cell.addTagBlock = ^(){
-                //添加标签
+                //添加标签页面
                 [weakSelf goToTagsVC];
             };
+            //标签变化
             cell.tagsChangedBlock = ^(){
                 weakSelf.myTask.labels = [weakSelf.myCopyTask.labels mutableCopy];
                 [weakSelf.myTableView reloadData];
@@ -359,6 +361,7 @@
 //            [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:20];
             return cell;
         }else{
+            //描述的cell
             TaskDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TaskDescriptionCell forIndexPath:indexPath];
             NSString *titleStr;
             if (_myCopyTask.handleType > TaskHandleTypeEdit) {
@@ -500,7 +503,7 @@
         }else if (cellType == LeftImage_LRTextCellTypeTaskDeadline){
             NSDate *curDate = _myCopyTask.deadline_date? _myCopyTask.deadline_date : [NSDate date];
             ESStrongSelf;
-            ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:nil datePickerMode:UIDatePickerModeDate selectedDate:curDate doneBlock:^(ActionSheetDatePicker *picker, NSDate *selectedDate, id origin) {
+            ActionSheetDatePicker *picker = [[ActionSheetDatePicker alloc] initWithTitle:@"请选择时间" datePickerMode:UIDatePickerModeDate selectedDate:curDate doneBlock:^(ActionSheetDatePicker *picker, NSDate *selectedDate, id origin) {
                 _self.myCopyTask.deadline = [selectedDate string_yyyy_MM_dd];
                 [_self.myTableView reloadData];
             } cancelBlock:^(ActionSheetDatePicker *picker) {
@@ -559,6 +562,7 @@
     TaskDescriptionViewController *vc = [[TaskDescriptionViewController alloc] init];
     vc.curTask = _myCopyTask;
     
+    //保存回调block
     vc.savedNewTDBlock = ^(Task_Description *taskD){
         ESStrongSelf;
         _self.myTask.has_description = _self.myCopyTask.has_description = [NSNumber numberWithBool:taskD.markdown.length > 0];

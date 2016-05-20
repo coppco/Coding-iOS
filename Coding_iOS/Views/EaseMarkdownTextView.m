@@ -31,6 +31,7 @@
 @implementation EaseMarkdownTextView
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        //设置弹出的键盘上面的view
         self.inputAccessoryView = [RFKeyboardToolbar toolbarWithButtons:[self buttons]];
         
         //监听-上传文件成功

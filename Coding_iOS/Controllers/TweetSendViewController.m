@@ -76,7 +76,7 @@
                                    @strongify(self);
                                    return @(![self isEmptyTweet]);
                                }];
-    self.title = [NSString stringWithFormat:@"发冒泡"];
+    self.title = [NSString stringWithFormat:@"111发冒泡"];
     
     //    添加myTableView
     _myTableView = ({
@@ -144,6 +144,7 @@
             UINavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
             [weakSelf presentViewController:nav animated:YES completion:nil];
         };
+        cell.backgroundColor = [UIColor redColor];
         return cell;
     }else {
         TweetSendImagesCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TweetSendImages forIndexPath:indexPath];
@@ -155,6 +156,7 @@
             [weakSelf.curTweet deleteATweetImage:toDelete];
             [weakSelf.myTableView reloadData];
         };
+        cell.backgroundColor = [UIColor blueColor];
         return cell;
     }
 }

@@ -74,8 +74,8 @@
 
     self.view.backgroundColor = [UIColor colorWithHexString:@"0xf1f1f1"];
     
-    [self configureViews];
-    [self configureAnimations];
+    [self configureViews]; //配置view
+    [self configureAnimations]; //配置动画
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -104,17 +104,18 @@
     [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:interfaceOrientation] forKey:@"orientation"];
 }
 
-#pragma mark Super
+#pragma mark Super  重写这个方法  必须要调用super 方法,或者实现父类里面执行的方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self animateCurrentFrame];
+//    [self animateCurrentFrame];
+    [super scrollViewDidScroll:scrollView];
     NSInteger nearestPage = floorf(self.pageOffset + 0.5);
     self.pageControl.currentPage = nearestPage;
 }
 
 #pragma Views
 - (void)configureViews{
-    [self configureButtonsAndPageControl];
+    [self configureButtonsAndPageControl]; //按钮和page添加到view上面
 
     CGFloat scaleFactor = 1.0;
     CGFloat desginHeight = 667.0;//iPhone6 的设计尺寸
@@ -122,6 +123,12 @@
         scaleFactor = kScreen_Height/desginHeight;
     }
 
+    
+    /**
+     *  @author XHJ, 16-05-13 10:05:03
+     *
+     *  这里把所有的scrollview的子view添加到contentView中  但是并没有设置它的frame
+     */
     for (int i = 0; i < self.numberOfPages; i++) {
         NSString *imageKey = [self imageKeyForIndex:i];
         NSString *viewKey = [self viewKeyForIndex:i];
@@ -267,10 +274,16 @@
             [self keepView:tipView onPages:@[@(index +1), @(index), @(index-1)] atTimes:@[@(index - 1), @(index), @(index +1)]];
 
             IFTTTAlphaAnimation *tipAlphaAnimation = [IFTTTAlphaAnimation animationWithView:tipView];
+            IFTTTColorAnimation *colorA = [IFTTTColorAnimation animationWithView:tipView];
+            [colorA addKeyframeForTime:index - 0.5 color:[UIColor redColor]];
+            [colorA addKeyframeForTime:index - 0.5 color:[UIColor greenColor]];
+            [colorA addKeyframeForTime:index + 0.5 color:[UIColor blueColor]];
+
             [tipAlphaAnimation addKeyframeForTime:index -0.5 alpha:0.f];
             [tipAlphaAnimation addKeyframeForTime:index alpha:1.f];
             [tipAlphaAnimation addKeyframeForTime:index +0.5 alpha:0.f];
             [self.animator addAnimation:tipAlphaAnimation];
+            [self.animator addAnimation:colorA];
             
             [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(iconView.mas_bottom).offset(kScaleFrom_iPhone5_Desgin(45));
