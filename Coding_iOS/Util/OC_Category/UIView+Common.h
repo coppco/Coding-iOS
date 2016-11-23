@@ -56,6 +56,7 @@ typedef NS_ENUM(NSInteger, BadgePositionType) {
 @property (nonatomic) IBInspectable CGFloat cornerRadius;
 @property (nonatomic) IBInspectable BOOL masksToBounds;
 
+
 - (void)doCircleFrame;
 - (void)doNotCircleFrame;
 - (void)doBorderWidth:(CGFloat)width color:(UIColor *)color cornerRadius:(CGFloat)cornerRadius;

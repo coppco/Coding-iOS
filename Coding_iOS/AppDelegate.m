@@ -95,6 +95,7 @@
     //UIWebView 的 User-Agent
     [self registerUserAgent];
 
+    //设置keyWindows
     if ([Login isLogin]) {
         [self setupTabViewController];
     }else{

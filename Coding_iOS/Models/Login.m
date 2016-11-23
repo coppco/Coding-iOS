@@ -161,6 +161,7 @@ static User *curLoginUser;
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:obj];
         }
     }];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [Login setXGAccountWithCurUser];
 }
 

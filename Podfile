@@ -3,12 +3,12 @@ platform :ios, '7.0'
 
 target "Coding_iOS" do
     
-pod 'TTTAttributedLabel', '1.10.1'
+pod 'TTTAttributedLabel', '1.10.1'#一种可以点击的文本
 pod 'RegexKitLite-NoWarning', '1.1.0'
 pod 'hpple', '0.2.0'
-pod 'MBProgressHUD', '0.9'
-pod 'TPKeyboardAvoiding', '1.2.4'
-pod 'BlocksKit', '2.2.5'
+pod 'MBProgressHUD', '0.9'  #HUD
+pod 'TPKeyboardAvoiding', '1.2.4' #处理键盘的
+pod 'BlocksKit', '2.2.5'#
 pod 'n', '2.3.1'
 pod 'MMMarkdown', '0.3'
 pod 'Masonry', '0.5.3' #自动布局

@@ -18,7 +18,8 @@
 @implementation UIView (Common)
 static char LoadingViewKey, BlankPageViewKey;
 
-@dynamic borderColor,borderWidth,cornerRadius, masksToBounds;
+@dynamic borderColor,borderWidth,cornerRadius, masksToBounds; //不会自动生成setter和getter方法
+//@synthesize <#property#>  自动setter getter方法
 
 -(void)setBorderColor:(UIColor *)borderColor{
     [self.layer setBorderColor:borderColor.CGColor];
@@ -409,6 +410,7 @@ static char LoadingViewKey, BlankPageViewKey;
 //            make.top.left.equalTo(self.blankPageContainer);
 //        }];
         [self.blankPageView configWithType:blankPageType hasData:hasData hasError:hasError reloadButtonBlock:block];
+
     }
 }
 
@@ -517,7 +519,6 @@ static char LoadingViewKey, BlankPageViewKey;
             _loadAndShowStatusBlock();
         }
     });
-    
     
     if (hasData) {
         [self removeFromSuperview];

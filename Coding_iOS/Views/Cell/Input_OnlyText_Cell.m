@@ -35,6 +35,7 @@
         if (!_textField) {
             _textField = [UITextField new];
             [_textField setFont:[UIFont systemFontOfSize:17]];
+            _textField.tintColor = [UIColor redColor];
             [_textField addTarget:self action:@selector(editDidBegin:) forControlEvents:UIControlEventEditingDidBegin];
 //            [_textField addTarget:self action:@selector(textValueChanged:) forControlEvents:UIControlEventEditingChanged];
             [_textField bk_addEventHandler:^(id sender) {
